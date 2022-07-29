@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "363289070528",
+    "project_id": "chatcenter-8912f",
+    "storage_bucket": "chatcenter-8912f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363289070528:android:9fd7605bc498e8f2e29625",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "363289070528-661ahnhruu0jnd9f7046lvf37b0vpst1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACLAabFggxALpWLVlGGKJq0lq1KKj69pM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "363289070528-661ahnhruu0jnd9f7046lvf37b0vpst1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
