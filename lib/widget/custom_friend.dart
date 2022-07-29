@@ -44,7 +44,7 @@ class _CustomFriendState extends State<CustomFriend> {
                             children: <Widget>[
                               Text(
                                 widget.title,
-                                style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Color(0xff3E3E3E)),
                               ),
                               SizedBox(
                                 height: 6,

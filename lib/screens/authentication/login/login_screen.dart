@@ -30,103 +30,107 @@ class LoginScreen extends StatelessWidget {
               ),
               inAsyncCall: model.state == ViewState.busy,
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    CustomContainer(),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30),
-                          ),
-                          color: Color(0xffF5F7F9)
-                          // Colors.amber
-                
-                          ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Login',
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.bold),
+                child: Form(
+                key: model.formKey,
+
+                  child: Column(
+                    children: [
+                      CustomContainer(),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
                             ),
-                            SizedBox(
-                              height: 50,
+                            color: Color(0xffF5F7F9)
+                            // Colors.amber
+                  
                             ),
-                            CustomTextField(
-                              textInputAction: TextInputAction.next,
-                              onChanged: (value) {
-                                model.appUser.userEmail = value;
-                              },
-                              prefixIcon: Icon(Icons.email),
-                              hinttext: 'Email id',
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            CustomTextField(
-                              textInputAction: TextInputAction.next,
-                              onChanged: (value) {
-                                model.appUser.password = value;
-                              },
-                              prefixIcon: Icon(Icons.lock),
-                              hinttext: "Pasword",
-                            ),
-                            SizedBox(height: 10),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5, left: 250),
-                              child: Text(
-                                "Forgot pasword?",
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Login',
                                 style: TextStyle(
-                                    color: Color(0xffC60000), fontSize: 15),
+                                    fontSize: 25, fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            SizedBox(height: 70),
-                            CustomButton(
-                                title: 'Login',
-                                onPressed: () {
-                                  model.loginUser(model.appUser, context);
-                                  // Navigator.pushReplacement(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => BottomNavigation(),
-                                  //   ),
-                                  // );
-                                }),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Center(
-                              child: RichText(
-                                  text: TextSpan(children: <TextSpan>[
-                                TextSpan(
-                                  text: ' Don\'t have account?',
-                                  style:
-                                      TextStyle(color: Colors.grey, fontSize: 15),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              CustomTextField(
+                                textInputAction: TextInputAction.next,
+                                onChanged: (value) {
+                                  model.appUser.userEmail = value;
+                                },
+                                prefixIcon: Icon(Icons.email),
+                                hinttext: 'Email id',
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              CustomTextField(
+                                textInputAction: TextInputAction.next,
+                                onChanged: (value) {
+                                  model.appUser.password = value;
+                                },
+                                prefixIcon: Icon(Icons.lock),
+                                hinttext: "Pasword",
+                              ),
+                              SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5, left: 250),
+                                child: Text(
+                                  "Forgot pasword?",
+                                  style: TextStyle(
+                                      color: Color(0xffC60000), fontSize: 15),
                                 ),
-                                TextSpan(
-                                    text: 'Sign Up ',
-                                    style: TextStyle(
-                                        color: Color(0xffC60000), fontSize: 15),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => SignUpScreen(),
-                                          ),
-                                        );
-                                      }),
-                              ])),
-                            )
-                          ],
+                              ),
+                              SizedBox(height: 70),
+                              CustomButton(
+                                  title: 'Login',
+                                  onPressed: () {
+                                    model.loginUser(model.appUser, context);
+                                    // Navigator.pushReplacement(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => BottomNavigation(),
+                                    //   ),
+                                    // );
+                                  }),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Center(
+                                child: RichText(
+                                    text: TextSpan(children: <TextSpan>[
+                                  TextSpan(
+                                    text: ' Don\'t have account?',
+                                    style:
+                                        TextStyle(color: Colors.grey, fontSize: 15),
+                                  ),
+                                  TextSpan(
+                                      text: 'Sign Up ',
+                                      style: TextStyle(
+                                          color: Color(0xffC60000), fontSize: 15),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => SignUpScreen(),
+                                            ),
+                                          );
+                                        }),
+                                ])),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

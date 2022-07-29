@@ -16,7 +16,7 @@ class _CustomFriendRequesState extends State<CustomFriendReques> {
   @override
   Widget build(BuildContext context) {
     return Card(
-                  margin: new EdgeInsets.only(bottom: 20.0),
+                 margin: new EdgeInsets.only(bottom: 20.0),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -36,8 +36,8 @@ class _CustomFriendRequesState extends State<CustomFriendReques> {
                                 Text(
                                   widget.title,
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
+                                    color: Color(0xff3E3E3E),
+                                    fontSize: 15,
                                   ),
                                 ),
                                 Text(
@@ -47,9 +47,9 @@ class _CustomFriendRequesState extends State<CustomFriendReques> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                Row(
+                                Row(mainAxisAlignment: MainAxisAlignment.end,
                                   children: <Widget>[
-                                    Expanded(
+                                    Container(
                                       child: FlatButton(
                                         onPressed: () {},
                                         child: Text('Confirm',
@@ -64,9 +64,9 @@ class _CustomFriendRequesState extends State<CustomFriendReques> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.only(right: 10),
+                                      padding: EdgeInsets.only(right: 5),
                                     ),
-                                    Expanded(
+                                    Container(
                                       child: FlatButton(
                                         onPressed: () {},
                                         child: Text('Delete',
@@ -81,8 +81,8 @@ class _CustomFriendRequesState extends State<CustomFriendReques> {
                                       ),
                                     ),
                                   ],
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceEvenly,
                                 )
                               ],
                               crossAxisAlignment: CrossAxisAlignment.start,

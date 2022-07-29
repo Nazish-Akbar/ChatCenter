@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_application_1/core/constants/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/models/friend_model.dart';
@@ -12,7 +13,7 @@ class FriendScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffC60000),
+        backgroundColor: redColor,
         title: Text(
           "Friends",
           style: TextStyle(
@@ -38,7 +39,7 @@ class FriendScreen extends StatelessWidget {
                     TextSpan(
                       text: ' Friends',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Color(0xff3E3E3E),
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
@@ -54,7 +55,7 @@ class FriendScreen extends StatelessWidget {
                   ])),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: ListView.builder(
                     itemCount: personList.length,
                     shrinkWrap: true,

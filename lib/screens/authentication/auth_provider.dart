@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widget/bottom_navigation_bar.dart';
+import 'package:intl/intl.dart';
+import '../../../core/services/auth_services.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/enums/view_state.dart';
 import '../../core/locator.dart';
 import '../../core/models/app_user.dart';
 import '../../core/models/base_view_model.dart';
-import '../../core/services/auth_services.dart';
 import '../../core/services/custom_auth_result.dart';
-import '../../widget/bottom_navigation_bar.dart';
-
-
 
 
 class AuthenticationProvider extends BaseViewModal {
@@ -38,7 +38,7 @@ class AuthenticationProvider extends BaseViewModal {
     selectedDate = d;
 
     print("here is Selected "+selectedDate.toString());
-    //selectedDateString = DateFormat.yMMMMd("en_US").format(selectedDate).toString();
+    selectedDateString = DateFormat.yMMMMd("en_US").format(selectedDate).toString();
     notifyListeners();
   }
 
@@ -99,21 +99,18 @@ class AuthenticationProvider extends BaseViewModal {
       appUser.createdAt = DateTime.now();
       appUser.lastEntry = DateTime.now();
 
-    //  appUser.monthYear = monthYear.format(DateTime.now());
+      //appUser.monthYear = monthYear.format(DateTime.now());
       ///
       customAuthResult = await _authServices.signUpUser(appUser);
       setState(ViewState.idle);
       if (customAuthResult.user != null) {
         print("SignUpUserId=> ${_authServices.appUser.appUserId}");
-Navigator.pushReplacement(
+         Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BottomNavigation(),
-                  ),
-                );
-
-        // Navigator.pushReplacement(
-        //     context, CustomPageRoute(child: BottomNavigation()));
+                    builder: (context) => BottomNavigation()),);
+       // Navigator.pushReplacement(
+         //   context, CustomPageRoute(child: BottomNavigation()));
       } else {
         print(customAuthResult.errorMessage.toString());
         
@@ -144,18 +141,21 @@ Navigator.pushReplacement(
         print("App user Id: ${_authServices.appUser.appUserId}");
         print("Is first Login=> ${_authServices.appUser.isFirstLogin}");
         if (_authServices.appUser.isFirstLogin == true) {
-          
+          Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BottomNavigation()),);
+         // Navigator.pushReplacement(
+           //   context, CustomPageRoute(child: BottomNavigation()));
         } else if (_authServices.appUser.isFirstLogin == false) {
           // 
         }
       } else {
-        Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BottomNavigation(),
-                  ),
-                );
-
         //      }
       }
-  }}}
+  }
+
+  }
+
+
+}

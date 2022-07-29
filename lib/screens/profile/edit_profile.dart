@@ -21,7 +21,7 @@ class EditProfile extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Color(0xff5C2CC8),
+              backgroundColor: redColor,
               automaticallyImplyLeading: true,
               elevation: 0,
               title: Row(
@@ -112,14 +112,14 @@ class EditProfile extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      CustomTextField(
-                        controller: model.locationController,
-                        textInputAction: TextInputAction.next,
-                        onChanged: (value) {
-                          model.appUser.userLocation = value;
-                        },
-                        hinttext: 'Location',
-                      ),
+                      // CustomTextField(
+                      //   controller: model.locationController,
+                      //   textInputAction: TextInputAction.next,
+                      //   onChanged: (value) {
+                      //     model.appUser.userLocation = value;
+                      //   },
+                      //   hinttext: 'Location',
+                      // ),
                       SizedBox(
                         height: 20,
                       ),
@@ -139,7 +139,7 @@ class EditProfile extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         height: 50,
                         child: RaisedButton(
-                          color: Color(0xff482E91),
+                          color: redColor,
                           child: Text(
                             "Update Profile",
                             style: TextStyle(color: Colors.white),

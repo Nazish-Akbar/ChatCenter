@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/splash_screen.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         //TODO: Screen sizes to be changed according to the design provided
         designSize: Size(width, height),
         //  builder: (_, child) => SplashScreen(),
-        builder: (_, child) => WelcomeScreen(),
+        builder: (_, child) => SplashScreen(),
         // builder: (_, child) => SignUp(),
         //builder: (_, child) => PriceRangeScreen(),
       ),

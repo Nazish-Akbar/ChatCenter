@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/models/chat_user.dart';
 import '../../widget/bottom_navigation_bar.dart';
-import '../../widget/custom_appbar.dart';
 import '../../widget/custom_chat.dart';
 
 class ConversationScreen extends StatelessWidget {
@@ -27,6 +26,16 @@ class ConversationScreen extends StatelessWidget {
             child: SvgPicture.asset('assets/heart.svg'),
           ),
         ),
+        actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: GestureDetector(
+                      onTap: () {
+                        //Navigator.push(context, MaterialPageRoute(builder: (context)=>()));
+                      }, 
+                      child: Icon(Icons.add)),
+                ),
+              ],
       ),
       body: SingleChildScrollView(
         child: Column(
