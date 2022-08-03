@@ -21,6 +21,20 @@ class DatabaseStorageServices{
     }
   }
 
+   Future<String?> uploadMessagesImg(File image,String uuid) async{
+    // final imagePath = image.path;
+    try{
+      var reference = _storage.ref().child("MessageImg/${image.path}");
+      var uploadImage = reference.putFile(image);
+      TaskSnapshot snapshot = await uploadImage.whenComplete(() => print('Image Uploaded'));
+      final imageUrl = snapshot.ref.getDownloadURL();
+      return imageUrl;
+    }catch(e){
+      print("Exception@uploadUserImage=> $e");
+      return null;
+    }
+  }
+
 
 
   Future<String?> uploadNotesImages(File image,String? xFile) async{

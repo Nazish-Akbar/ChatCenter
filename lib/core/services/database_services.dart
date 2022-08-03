@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import '../locator.dart';
 import '../models/app_user.dart';
-import '../models/zap_requst_model.dart';
+import '../models/conversation_model.dart';
 import 'auth_services.dart';
 
 class DatabaseServices {
@@ -31,9 +31,8 @@ class DatabaseServices {
   Future<AppUser> getUser(id) async {
     print('GetUser id: $id');
     try {
-      final snapshot = await firebaseFireStore.collection('AppUser')
-          .doc(id)
-          .get();
+      final snapshot =
+          await firebaseFireStore.collection('AppUser').doc(id).get();
       // print('Current app User Data: ${snapshot.data()}');
       return AppUser.fromJson(snapshot.data(), snapshot.id);
     } catch (e) {
@@ -48,8 +47,10 @@ class DatabaseServices {
   Future<List<AppUser>> getAppUsers() async {
     final List<AppUser> appUserList = [];
     try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('AppUser').where(
-          'appUserId', isNotEqualTo: locator<AuthServices>().appUser.appUserId)
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('AppUser')
+          .where('appUserId',
+              isNotEqualTo: locator<AuthServices>().appUser.appUserId)
           .get();
       if (snapshot.docs.length > 0) {
         snapshot.docs.forEach((element) {
@@ -68,7 +69,9 @@ class DatabaseServices {
   Future<List<AppUser>> getWholeUsers() async {
     final List<AppUser> appUserList = [];
     try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('AppUser').orderBy('faceCardNumber',descending: true)
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('AppUser')
+          .orderBy('faceCardNumber', descending: true)
           .get();
       if (snapshot.docs.length > 0) {
         snapshot.docs.forEach((element) {
@@ -90,8 +93,8 @@ class DatabaseServices {
   Future<List<AppUser>> getTopThreeUsers() async {
     final List<AppUser> appUserList = [];
     try {
-      QuerySnapshot snapshot = await firebaseFireStore.collection('AppUser').orderBy('faceCardNumber',descending: true)
-          .get();
+      QuerySnapshot snapshot =
+          await firebaseFireStore.collection('AppUser').get();
       if (snapshot.docs.length > 0) {
         snapshot.docs.forEach((element) {
           appUserList.add(AppUser.fromJson(element, element.id));
@@ -106,7 +109,6 @@ class DatabaseServices {
     return appUserList;
   }
 
-
   updateUserProfile(AppUser appUser) async {
     try {
       await firebaseFireStore
@@ -118,36 +120,100 @@ class DatabaseServices {
     }
   }
 
-
-  updateotherUserProfile(double zaps,String userId) async {
+  updateotherUserProfile(double zaps, String userId) async {
     try {
       await firebaseFireStore
           .collection('AppUser')
           .doc(userId.toString())
           .update({
-        'faceCardNumber':zaps,
+        'faceCardNumber': zaps,
       });
     } catch (e) {
       print('Exception@UpdateUserProfile=>$e');
     }
   }
 
-
-  sendZapsRequest(ZapRequestModel zapRequestModel,String recieverId) async {
-
+  Future<List<AppUser>> getAllAppUser() async {
+    final List<AppUser> appUserList = [];
     try {
-      await firebaseFireStore
-          .collection('ZapRequests')
-          .doc(recieverId).collection("setRequest").doc()
-          .set(zapRequestModel.toJson());
+      QuerySnapshot snapshot =
+          await firebaseFireStore.collection('AppUser').get();
+      if (snapshot.docs.length > 0) {
+        snapshot.docs.forEach((element) {
+          appUserList.add(AppUser.fromJson(element, element.id));
+          print("getUser => ${element['userName']}");
+        });
+      } else {
+        print("No data found");
+      }
     } catch (e) {
-      print('Exception@Zaps requests=>$e');
+      print('Exception @DatabaseService/GetAllUsers $e');
     }
-
-
-
+    return appUserList;
   }
 
+  Stream<QuerySnapshot>? getUserConversationList(AppUser appUser) {
+    try {
+      Stream<QuerySnapshot> snapshot = firebaseFireStore
+          .collection("Conversations")
+          .doc(appUser.appUserId)
+          .collection("Chats")
+          .orderBy('lastMessageAt', descending: false)
+          .snapshots();
+      return snapshot;
+    } catch (e) {
+      print('Exception@GetUserConversationList$e');
+      return null;
+    }
+  }
+
+  addUserMessage(AppUser currentAppUser, String toUserId,
+      Conversation conversation, AppUser toAppUser) async {
+    try {
+      // await firebaseFireStore.collection("Conversations").doc("$fromUserId").set(appUser.toJson());
+      // await firebaseFireStore.collection("Conversations").doc("$fromUserId$toUserId").collection("Messages").add(conversation.toJson());
+      ///
+      /// From User message
+      ///
+      await firebaseFireStore
+          .collection("Conversations")
+          .doc("${currentAppUser.appUserId}")
+          .collection("Chats")
+          .doc("$toUserId")
+          .collection("messages")
+         
+          .add(conversation.toJson());
+
+      await firebaseFireStore
+          .collection("Conversations")
+          .doc("${currentAppUser.appUserId}")
+          .collection("Chats")
+          .doc("$toUserId")
+          .set(toAppUser.toJson());
+
+      ///
+      /// to user message
+      ///
+      await firebaseFireStore
+          .collection("Conversations")
+
+          .doc("$toUserId")
+          .collection("Chats")
+          .doc("${currentAppUser.appUserId}")
+          .collection("messages")
+          
+          
+          .add(conversation.toJson());
+      await firebaseFireStore
+          .collection("Conversations")
+          .doc("$toUserId")
+          .collection("Chats")
+          .doc("${currentAppUser.appUserId}")
+          .set(currentAppUser.toJson());
+    } catch (e) {
+      print('Exception@sentUserMessage$e');
+    }
+  }
 
   //
   // setWeight(WeightTracking weightTracking) async {
@@ -294,9 +360,6 @@ class DatabaseServices {
   //   }
   //
   // }
-
-
-
 
   // updateUserProfile(AppUser appUser) async {
   //   try {
@@ -761,6 +824,5 @@ class DatabaseServices {
   //   }
   //
   // }
-
 
 }

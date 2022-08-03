@@ -2,13 +2,13 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/colors.dart';
-import 'package:flutter_application_1/screens/chat/chat_screen.dart';
+import 'package:flutter_application_1/screens/home/chat_screen.dart';
 import 'package:flutter_application_1/screens/notification/notification_screen.dart';
 import 'package:flutter_application_1/screens/profile/profile_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../screens/friend/friend_screen.dart';
-import '../screens/home/conversation_screen.dart';
+import '../screens/home/message_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int pageIndex = 0;
 
   final pages = [
-    ConversationScreen(),
+    MessageScreen(),
     NotificationScreen(),
     FriendScreen(),
     ProfileScreen(),
