@@ -18,6 +18,7 @@ import 'dart:io';
 class MessageProvider extends BaseViewModal {
   XFile? image;
   File? userImage;
+  File? userAudio;
  
   final ImagePicker imagePicker = ImagePicker();
   bool isSearching = false;
@@ -40,6 +41,7 @@ class MessageProvider extends BaseViewModal {
   var onlyTime = DateFormat.jm();
   DatabaseStorageServices databaseStorageServices = DatabaseStorageServices();
   final locateUser = locator<AuthServices>();
+ 
 
   MessageProvider() {
     currentAppUser = currentUser.appUser;
@@ -85,10 +87,28 @@ class MessageProvider extends BaseViewModal {
           conversation.type=0;
         
 
-      }else{
+      }
+
+       if (voiceNote!=null){
+        var audioUrl = await databaseStorageServices.uploadAudioToStorage(
+          voiceNote!, );
+          conversation.audio=audioUrl;
+          clearAudioPath();
+          
+          conversation.type=1;
+        
+
+      }
+
+      // if(voiceNote!=null){
+
+      //   var myAudio = await databaseStorageServices.uploadAudioToStorage(voiceNote!);
+        
+      //   }
+        else{
         userImage=null;
 
-        conversation.type=1;
+        conversation.type=3;
       
       }
 
@@ -148,6 +168,7 @@ class MessageProvider extends BaseViewModal {
       print("File Exists = $x");
       print("${await getFileSize(audioPath, 2)}");
     }
+
 
     // voiceData = await rootBundle.load(audioPath);
 

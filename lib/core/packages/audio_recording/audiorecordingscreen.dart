@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/home/message_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:just_audio/just_audio.dart' as ap;
@@ -13,6 +14,7 @@ import '../../constants/colors.dart';
 import './audio_player.dart';
 
 const primaryColor = Colors.black;
+
 class AudioRecorder extends StatefulWidget {
   final void Function(String path) onStop;
 
@@ -260,7 +262,6 @@ class _AudioRecorderState extends State<AudioRecorder> {
     _ampTimer?.cancel();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
-
       setState(() => _recordDuration++);
     });
 
@@ -281,9 +282,6 @@ class _AudioRecorderState extends State<AudioRecorder> {
 ///
 ///
 ///
-
-
-
 
 class AudioRecordingScreen extends StatefulWidget {
   bool showPlayer;
@@ -311,7 +309,7 @@ class _AudioRecordingScreenState extends State<AudioRecordingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // HireProvider _hireProvider = Provider.of<HireProvider>(context);
+    MessageProvider _messageProvider = Provider.of<MessageProvider>(context);
     return Center(
       child: widget.showPlayer
           ? Padding(
@@ -323,7 +321,7 @@ class _AudioRecordingScreenState extends State<AudioRecordingScreen> {
                     setState(
                       () {
                         widget.showPlayer = false;
-                        // _hireProvider.clearAudioPath();
+                        _messageProvider.clearAudioPath();
                         widget.audioFilePath = "";
                         widget.showPlayer = false;
                         widget.audioSource = null;
@@ -343,6 +341,7 @@ class _AudioRecordingScreenState extends State<AudioRecordingScreen> {
                     widget.audioFilePath = path;
                   },
                 );
+                _messageProvider.setAudioPath(widget.audioFilePath);
               },
             ),
     );

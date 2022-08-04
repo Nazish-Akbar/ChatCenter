@@ -1,14 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/constants/colors.dart';
+import 'package:flutter_application_1/screens/home/message_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:helpal/ui/screens/plumber_screens/hire_plumber_screen/hire_plumber_provider.dart';
 import 'package:just_audio/just_audio.dart' as ap;
+import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
 // import '../../constants/colors.dart';
 
-const primaryColor = Colors.black;
+// const redColor = Colors.black;
 class AudioPlayer extends StatefulWidget {
   /// Path from where to play recorded audio
 
@@ -71,7 +74,8 @@ class AudioPlayerState extends State<AudioPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    // var _hireModel = Provider.of<HireProvider>(context);
+    // var provider = Provider;
+    var _messageProvider = Provider.of<MessageProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -108,16 +112,20 @@ class AudioPlayerState extends State<AudioPlayer> {
                 style: TextButton.styleFrom(
                   // primary: Colors.purple,
 
-                  backgroundColor: primaryColor,
+                  backgroundColor: redColor,
                   // textStyle: TextStyle(
                   //   color: Colors.white,
                   // ),
                   // color: Colors.white,
                 ),
                 onPressed: () async {
+
+await _messageProvider.databaseStorageServices.uploadAudioToStorage( _messageProvider. voiceNote!);
+
+                 // await model.databaseStorageServices.uploadAudioToStorage(voiceNote!);
                   // await _hireModel.setAudioPath(widget.audioFilePath);
-                  setState(() {});
-                  Navigator.pop(context);
+                  // setState(() {});
+                  // Navigator.pop(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
@@ -167,19 +175,19 @@ class AudioPlayerState extends State<AudioPlayer> {
       icon = Icon(
         Icons.pause,
         // color: Colors.red,
-        color: primaryColor,
+        color: redColor,
         // size: 30.r,
       );
       // color = Colors.red.withOpacity(0.1);
-      color = theme.primaryColor.withOpacity(0.1);
+      color = redColor.withOpacity(0.1);
     } else {
       // final theme = Theme.of(context);
       icon = Icon(
         Icons.play_arrow,
-        color: primaryColor,
+        color: redColor,
         // size: 40.r,
       );
-      color = theme.primaryColor.withOpacity(0.1);
+      color = redColor.withOpacity(0.1);
     }
 
     return
@@ -227,8 +235,8 @@ class AudioPlayerState extends State<AudioPlayer> {
 
     return SizedBox(
       child: Slider(
-        activeColor: primaryColor.withOpacity(0.9),
-        inactiveColor: primaryColor.withOpacity(0.5),
+        activeColor: redColor.withOpacity(0.9),
+        inactiveColor: redColor.withOpacity(0.5),
         onChanged: (v) {
           if (duration != null) {
             final position = v * duration.inMilliseconds;

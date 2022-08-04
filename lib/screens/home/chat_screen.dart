@@ -358,6 +358,7 @@ class ChatScreen extends StatelessWidget {
       enableDrag: false,
     );
   }
+  
 
 
 
