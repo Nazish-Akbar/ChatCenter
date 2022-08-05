@@ -184,13 +184,7 @@ class DatabaseServices {
          
           .add(conversation.toJson());
 
-      await firebaseFireStore
-          .collection("Conversations")
-          .doc("${currentAppUser.appUserId}")
-          .collection("Chats")
-          .doc("$toUserId")
-          .set(toAppUser.toJson());
-
+      
       ///
       /// to user message
       ///

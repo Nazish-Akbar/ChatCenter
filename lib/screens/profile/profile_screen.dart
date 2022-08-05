@@ -63,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
                       child: CircleAvatar(
                         backgroundImage: model.appUser.profileImage != null
                             ? NetworkImage("${model.appUser.profileImage}")
-                            : AssetImage('assets/images/pregnant_img.png')
+                            : AssetImage('assets/pregnant_img.png')
                                 as ImageProvider,
                         radius: 70,
                         child: Text(''),

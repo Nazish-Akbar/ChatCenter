@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/services/database_storage_services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/enums/view_state.dart';
@@ -19,7 +21,8 @@ class MessageProvider extends BaseViewModal {
   XFile? image;
   File? userImage;
   File? userAudio;
- 
+   double uploadProgress = 0;
+
   final ImagePicker imagePicker = ImagePicker();
   bool isSearching = false;
   AppUser currentAppUser = AppUser();
@@ -41,7 +44,6 @@ class MessageProvider extends BaseViewModal {
   var onlyTime = DateFormat.jm();
   DatabaseStorageServices databaseStorageServices = DatabaseStorageServices();
   final locateUser = locator<AuthServices>();
- 
 
   MessageProvider() {
     currentAppUser = currentUser.appUser;
@@ -64,7 +66,6 @@ class MessageProvider extends BaseViewModal {
   addUserMessages(
       String toUserId, Conversation conversation, AppUser toAppUser) async {
     if (formKey.currentState!.validate()) {
-
       //setState(ViewState.busy);
       conversation.sentAt = DateTime.now().toString();
       toAppUser.createdAt = DateTime.now();
@@ -76,63 +77,185 @@ class MessageProvider extends BaseViewModal {
       currentAppUser.lastMessageAt = DateTime.now().toString();
       // toAppUser.createdAt = DateTime.now().toString();
       messageController.clear();
-  
 
-      if (userImage!=null){
+      if (userImage != null) {
         var imageUrl = await databaseStorageServices.uploadMessagesImg(
-          userImage!, locateUser.appUser.appUserId!);
-          conversation.imageUrl=imageUrl;
-          userImage = null;
-          
-          conversation.type=0;
-        
+            userImage!, locateUser.appUser.appUserId!);
+        conversation.imageUrl = imageUrl;
 
+        userImage = null;
+
+        conversation.type = 0;
       }
 
-       if (voiceNote!=null){
-        var audioUrl = await databaseStorageServices.uploadAudioToStorage(
-          voiceNote!, );
-          conversation.audio=audioUrl;
-          clearAudioPath();
-          
-          conversation.type=1;
-        
+      Future<bool?> uploadVoiceNote(problemId) async {
+    print("voice Uploading called");
+    if (audioPath != null) {
+      print("audio path");
+      // File voiceNote = await File(audioPath).create();
+      // voiceNote = File(audioPath);
+      voiceNoteUrl = await databaseStorageServices.uploadVoiceNote(
+        voiceNote: voiceNote!,
+        // voiceNote: voiceData,
+        userId: locateUser.appUser.appUserId!,
+        problemId: problemId,
+      );
+      uploadProgress = 0.8;
+      notifyListeners();
+      print("firebase VoiceNoteURL Path ==> $voiceNoteUrl");
+      conversation.voiceNote = voiceNoteUrl;
+      clearAudioPath();
+      conversation.type=1;
+    }
+  }
 
-      }
+      // if (voiceNote != null) {
+      //   var audioUrl = await databaseStorageServices.uploadAudioToStorage(
+      //     voiceNote!,
+      //   );
+      //   conversation.audio = audioUrl;
+      //   clearAudioPath();
 
-      // if(voiceNote!=null){
+      //   conversation.type = 1;
+      // }
 
-      //   var myAudio = await databaseStorageServices.uploadAudioToStorage(voiceNote!);
-        
-      //   }
-        else{
-        userImage=null;
+      // if (voiceNote == null && userImage == null) {
+      //   conversation.audio = null;
+      //   conversation.imageUrl=null;
+      //   conversation.type = 3;
+      // }
 
-        conversation.type=3;
-      
-      }
-
-        print("Is this will print two time or one?==================================");
+      print(
+          "Is this will print two time or one?==================================");
       await databaseServices.addUserMessage(
           currentAppUser, toUserId, conversation, toAppUser);
       print(currentAppUser.lastMessage);
       userImage = null;
-  
-      notifyListeners();
 
-    
+      notifyListeners();
     }
   }
+/// function 1
 
-  pickImageFromGallery() async {
-    image = await imagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      userImage = File(image!.path);
-      // print("UserImagePath=>${userImage!.path}");
-    }
+  pickImageFromGallery(BuildContext context) async {
+    await selectImageDialog(context);
     notifyListeners();
   }
 
+
+
+  selectImageDialog(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          titlePadding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.close),
+              ),
+              Text("Import Image from"),
+              SizedBox(width: 5)
+            ],
+          ),
+          content: Container(
+            height: 140,
+            child: Column(
+              children: [
+
+
+
+
+                ListTile(
+                  
+                  onTap: () async {
+                  
+                    image = await imagePicker.pickImage(
+                      source: ImageSource.camera,
+                      imageQuality: 1,
+                    );
+                  
+                    print("Photo Path: ${image!.path}");
+
+                    File compressedFile =
+                        await compressImage(File(image!.path));
+                    
+                    userImage = compressedFile;
+                    
+                    // selectImage(compressedFile);
+                    Navigator.pop(context);
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  leading: Image.asset(
+                    'assets/camera_icon.png',
+                    scale: 1.8,
+                  ),
+                  title: Text('Camera'),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ListTile(
+                  onTap: () async {
+                    image = await imagePicker.pickImage(
+                      source: ImageSource.gallery,
+                      imageQuality: 1,
+                    );
+                    print("Photo Path: ${image!.path}");
+                    File compressedFile =
+                        await compressImage(File(image!.path));
+                    // selectImage(compressedFile);
+                      userImage = compressedFile;
+                    Navigator.pop(context);
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  leading: Image.asset(
+                    'assets/galery_icon.png',
+                    scale: 1.8,
+                  ),
+                  title: Text('Gallery'),
+                ),
+              ],
+            ),
+          ),
+          // actions: [],
+        );
+      },
+    );
+  }
+
+  Future<File> compressImage(File file) async {
+    final filePath = file.absolute.path;
+    // Create output file path
+    // eg:- "Volume/VM/abcd_out.jpeg"
+    final lastIndex = filePath.lastIndexOf(new RegExp(r'.jp'));
+    final splitted = filePath.substring(0, (lastIndex));
+    final outPath = "${splitted}_out${filePath.substring(lastIndex)}";
+
+    // FlutterImageCompress.
+    File? result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      outPath,
+      quality: 20,
+    );
+    print("Actual File Size: ${file.lengthSync()}");
+    print("Compressed File Size: ${result?.lengthSync()}");
+    return result!;
+  }
+
+  // pickImageFromGallery() async {
+  //   image = await imagePicker.pickImage(source: ImageSource.gallery);
+  //   if (image != null) {
+  //     userImage = File(image!.path);
+  //     // print("UserImagePath=>${userImage!.path}");
+  //   }
+  //   notifyListeners();
+  // }
 
   // Audio Recording logic starts from here
 
@@ -140,7 +263,7 @@ class MessageProvider extends BaseViewModal {
   String? iOSAudioPath;
   bool isAudioAttached = false;
   String? voiceNoteUrl;
-    File? voiceNote;
+  File? voiceNote;
 
   setAudioPath(String audioPath) async {
     print("Old Audio File Path = ${this.audioPath}");
@@ -169,7 +292,6 @@ class MessageProvider extends BaseViewModal {
       print("${await getFileSize(audioPath, 2)}");
     }
 
-
     // voiceData = await rootBundle.load(audioPath);
 
     // voiceNote = await File(audioPath).create();
@@ -189,7 +311,7 @@ class MessageProvider extends BaseViewModal {
     notifyListeners();
   }
 
-    getFileSize(String filepath, int decimals) async {
+  getFileSize(String filepath, int decimals) async {
     var file = File(filepath);
     int bytes = await file.length();
     if (bytes <= 0) return "0 B";
@@ -199,7 +321,6 @@ class MessageProvider extends BaseViewModal {
         ' ' +
         suffixes[i];
   }
-
 
   // ///
   // /// Get user messages using stream

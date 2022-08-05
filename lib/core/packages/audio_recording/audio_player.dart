@@ -120,12 +120,11 @@ class AudioPlayerState extends State<AudioPlayer> {
                 ),
                 onPressed: () async {
 
-await _messageProvider.databaseStorageServices.uploadAudioToStorage( _messageProvider. voiceNote!);
 
                  // await model.databaseStorageServices.uploadAudioToStorage(voiceNote!);
-                  // await _hireModel.setAudioPath(widget.audioFilePath);
-                  // setState(() {});
-                  // Navigator.pop(context);
+                   await _messageProvider.setAudioPath(widget.audioFilePath);
+                  setState(() {});
+                  Navigator.pop(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),

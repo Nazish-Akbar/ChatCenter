@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 360,
+            height: 260,
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -35,30 +35,6 @@ class DatabaseStorageServices{
     }
   }
 
-
-
-  Future<String?> uploadAudioToStorage(File audioFile,) async {
-  try {
-   
-    var ref = FirebaseStorage.instance.ref().child('chatAudios/${DateTime.now().millisecondsSinceEpoch}');
-    var uploadTask = ref.putFile(audioFile, ); 
-    //  Uri downloadUrl = (await uploadTask.onComplete).uploadSessionUri;
-    TaskSnapshot snapshot = (await uploadTask.whenComplete(  () => print('Voice Uploaded')  ));
-      final url = snapshot.ref.getDownloadURL();
-
-
-  print("url:$url");
-  return  url;
-
-  } catch (error) {
-    print("error$error");
-    return null;
-  }
-
-}
-
-
-
   Future<String?> uploadNotesImages(File image,String? xFile) async{
     // final imagePath = image.path;
     try{
@@ -72,6 +48,58 @@ class DatabaseStorageServices{
       return null;
     }
   }
+
+  Future<String?> uploadVoiceNote({
+    required File voiceNote,
+    required String userId,
+    required String problemId,
+  }) async {
+    try {
+      var fileName = (voiceNote.path.split('/').last);
+      print("$fileName");
+
+      var reference = _storage
+          .ref()
+          .child("posts/$userId/ProblemData/$problemId/$fileName");
+
+      var uploadVoiceNote = reference.putFile(voiceNote);
+      TaskSnapshot snapshot = await uploadVoiceNote.whenComplete(
+        () => print('Voice Note Uploaded'),
+      );
+      final voiceNoteUrl = snapshot.ref.getDownloadURL();
+      return voiceNoteUrl;
+    } catch (e) {
+      print("Exception@uploadingVoiceNote ==> $e");
+     return null;
+    //  throw "image-upload-error";
+    }
+  }
+ 
+
+
+  // Future<String?> uploadAudioToStorage(File audioFile,) async {
+  // try {
+   
+  //   var ref = FirebaseStorage.instance.ref().child('chatAudios/${DateTime.now().millisecondsSinceEpoch}');
+  //   var uploadTask = ref.putFile(audioFile, ); 
+  //   //  Uri downloadUrl = (await uploadTask.onComplete).uploadSessionUri;
+  //   TaskSnapshot snapshot = (await uploadTask.whenComplete(  () => print('Voice Uploaded')  ));
+  //     final url = snapshot.ref.getDownloadURL();
+
+
+  // print("url:$url");
+  // return  url;
+
+  // } catch (error) {
+  //   print("error$error");
+  //   return null;
+  // }
+
+}
+
+
+
+
 
 
 //   Future<dynamic> uploadAudioToStorage(dynamic audioFile) async {
@@ -98,4 +126,4 @@ class DatabaseStorageServices{
 // }
 
 
-}
+

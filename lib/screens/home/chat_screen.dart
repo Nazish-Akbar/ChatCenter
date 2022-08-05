@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import '../../core/constants/style/style.dart';
 import '../../core/enums/view_state.dart';
 import '../../core/models/app_user.dart';
+import '../../core/packages/audio_recording/audio_player.dart';
 import '../../core/packages/audio_recording/audiorecordingscreen.dart';
 import 'message_provider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -116,40 +117,74 @@ class ChatScreen extends StatelessWidget {
                                                     child: Image.network(
                                                         "${doc['imageUrl']}")),
                                               )
-                                            : Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 15,
-                                                    vertical: 10),
-                                                child: Align(
-                                                  alignment: (doc["sender"] ==
-                                                          model.currentUser
-                                                              .appUser.appUserId
-                                                      ? Alignment.topRight
-                                                      : Alignment.topLeft),
-                                                  child: Container(
+                                            : type == 1
+                                                ? Align(
+                                                    alignment: (doc["sender"] ==
+                                                            model
+                                                                .currentUser
+                                                                .appUser
+                                                                .appUserId
+                                                        ? Alignment.topRight
+                                                        : Alignment.topLeft),
+                                                    child: Card(
+                                                        elevation: 2,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: AudioPlayer(
+                                                            audioFilePath:
+                                                                model.audioPath,
+                                                            source:
+                                                                ap.AudioSource
+                                                                    .uri(
+                                                              Uri.parse(model
+                                                                  .audioPath),
+                                                            ),
+                                                            onDelete: () {
+                                                              model
+                                                                  .clearAudioPath();
+                                                            },
+                                                            showDone: false,
+                                                            showDeleteButton:
+                                                                true,
+                                                          ),
+                                                        )))
+                                                : Container(
                                                     padding:
                                                         EdgeInsets.symmetric(
-                                                            horizontal: 10,
-                                                            vertical: 5),
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        color: doc["sender"] ==
-                                                                model
-                                                                    .currentUser
-                                                                    .appUser
-                                                                    .appUserId!
-                                                            ? Colors.grey
-                                                                .withOpacity(
-                                                                    0.3)
-                                                            : Colors.blue[200]),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Padding(
+                                                            horizontal: 15,
+                                                            vertical: 10),
+                                                    child: Align(
+                                                      alignment: (doc[
+                                                                  "sender"] ==
+                                                              model
+                                                                  .currentUser
+                                                                  .appUser
+                                                                  .appUserId
+                                                          ? Alignment.topRight
+                                                          : Alignment.topLeft),
+                                                      child: Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 10,
+                                                                vertical: 5),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                            color: doc["sender"] ==
+                                                                    model
+                                                                        .currentUser
+                                                                        .appUser
+                                                                        .appUserId!
+                                                                ? Colors.grey
+                                                                    .withOpacity(
+                                                                        0.3)
+                                                                : Colors
+                                                                    .blue[200]),
+                                                        child: Padding(
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(8.0),
@@ -167,17 +202,9 @@ class ChatScreen extends StatelessWidget {
                                                             ),
                                                           ),
                                                         ),
-                                                        // Text(
-                                                        //   "${model.onlyTime.format(${doc['sentAt']})}",
-                                                        //   style: TextStyle(
-                                                        //       color: Colors
-                                                        //           .grey),
-                                                        // ),
-                                                      ],
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ),
                                       ],
                                     );
                                   }),
@@ -246,11 +273,10 @@ class ChatScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   child: InkWell(
                                       onTap: () {
-                                              recordAudioFunction(context, 
-                                              model: model,
-                                              
-                                              );
-
+                                        recordAudioFunction(
+                                          context,
+                                          model: model,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.keyboard_voice,
@@ -260,7 +286,7 @@ class ChatScreen extends StatelessWidget {
                                 ),
                                 prefixIcon: GestureDetector(
                                   onTap: () {
-                                    model.pickImageFromGallery();
+                                    model.pickImageFromGallery(context);
                                     // print("Sent to User :${toAppUser!.appUserId}");
                                     // model.addUserMessages(toAppUser!.appUserId!,
                                     //     model.conversation, toAppUser!);
@@ -280,7 +306,7 @@ class ChatScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                           padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                               color: redColor, shape: BoxShape.circle),
                           child: GestureDetector(
@@ -321,8 +347,8 @@ class ChatScreen extends StatelessWidget {
     );
   }
 
-/// Record Audio Function to show Bottom Sheet//
-/// 
+  /// Record Audio Function to show Bottom Sheet//
+  ///
   recordAudioFunction(
     BuildContext context, {
     // bool isSmall = false,
@@ -331,7 +357,7 @@ class ChatScreen extends StatelessWidget {
     // HireProvider model = Provider.of<HireProvider>(context);
     Get.bottomSheet(
       Container(
-        height:  Get.height * 0.4,
+        height: Get.height * 0.4,
         child: Column(
           children: [
             Expanded(
@@ -344,7 +370,6 @@ class ChatScreen extends StatelessWidget {
                         audioSource: ap.AudioSource.uri(
                           Uri.parse(model.audioPath),
                         ),
-           
                       ),
               ),
             ),
@@ -358,9 +383,4 @@ class ChatScreen extends StatelessWidget {
       enableDrag: false,
     );
   }
-  
-
-
-
-
 }

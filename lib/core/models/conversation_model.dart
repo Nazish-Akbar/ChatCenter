@@ -4,10 +4,10 @@ class Conversation{
   bool? isMessageRead;
   String? sender;
   String? imageUrl;
-  String? audio;
+  String? voiceNote;
   int? type;
 
-  Conversation({this.sentAt,this.isMessageRead,this.messageText,this.imageUrl,this.sender,this.type,this.audio});
+  Conversation({this.sentAt,this.isMessageRead,this.messageText,this.imageUrl,this.sender,this.type,this.voiceNote});
 
   Conversation.formJson(json, id){
     this.messageText = json['messageText'];
@@ -16,7 +16,7 @@ class Conversation{
     this.sender = json['sender'];
     this.imageUrl=json['imageUrl'];
     this.type=json["type"];
-    this.audio=json["audio"];
+    this.voiceNote=json["voiceNote"];
   }
 
   toJson(){
@@ -27,7 +27,7 @@ class Conversation{
       'sender' : this.sender,
       'imageUrl':this.imageUrl,
       'type':this.type,
-      "audio":this.audio,
+      "voiceNote":this.voiceNote,
     };
   }
 
