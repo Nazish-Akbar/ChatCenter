@@ -22,8 +22,8 @@ class _CustomFriendRequesState extends State<CustomFriendReques> {
         child: Row(
           children: <Widget>[
             CircleAvatar(
-              backgroundColor: Color(0xffC60000),
-              // backgroundImage: NetworkImage(userProfileImage),
+              //backgroundColor: Color(0xffC60000),
+              backgroundImage: AssetImage('assets/img7.png'),
               radius: 30.0,
             ),
             Padding(

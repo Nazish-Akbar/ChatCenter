@@ -10,18 +10,19 @@ class container extends StatelessWidget {
     return Card(
       elevation: 2,
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.only(left: 15.0),
         child: Container(
-          height: 20,
-          width: 60,
+          // height: 10,
+          //width: 60,
           child: Row(
             children: [
               CircleAvatar(
-                radius: 40,
-                backgroundColor: Color(0xffC60000),
+                backgroundImage: AssetImage('assets/img3.png'),
+                radius: 35,
+                // backgroundColor: Color(0xffC60000),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 35, left: 10),
+                padding: const EdgeInsets.only(top: 45, left: 10),
                 child: Column(
                   children: [
                     Text(

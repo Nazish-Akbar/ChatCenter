@@ -56,34 +56,6 @@ class _TabButtonState extends State<TabButton>
                 ],
               ),
             ),
-
-            // Expanded(
-            //   child: TabBarView(
-            //     controller: _tabController,
-            //     children: [
-
-            //       Center(
-            //         child: Text(
-            //           'Friends',
-            //           style: TextStyle(
-            //             fontSize: 25,
-            //             fontWeight: FontWeight.w600,
-            //           ),
-            //         ),
-            //       ),
-
-            //       Center(
-            //         child: Text(
-            //           'Members',
-            //           style: TextStyle(
-            //             fontSize: 25,
-            //             fontWeight: FontWeight.w600,
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

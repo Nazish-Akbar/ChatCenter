@@ -36,81 +36,83 @@ class _OppertunityScreenState extends State<OppertunityScreen> {
               ? BorderRadius.circular(40)
               : BorderRadius.circular(0),
         ),
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(children: [
-              Container(
-                height: 200,
-                color: Color(0xffC60000),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: CustomAppBarWidget(
-                        txt: "Opportunities",
-                        onPressed: () {
-                          if (isDrawerOpen) {
-                            setState(() {
-                              xOffset = 0;
-                              yOffset = 0;
-                              isDrawerOpen = false;
-                            });
-                          } else {
-                            if (!isDrawerOpen) {
+        child: SafeArea(
+          child: Scaffold(
+            body: SingleChildScrollView(
+              child: Column(children: [
+                Container(
+                  height: 200,
+                  color: Color(0xffC60000),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: CustomAppBarWidget(
+                          txt: "Opportunities",
+                          onPressed: () {
+                            if (isDrawerOpen) {
                               setState(() {
-                                xOffset = size.width - 100;
-                                yOffset = size.height / 5;
-                                isDrawerOpen = true;
+                                xOffset = 0;
+                                yOffset = 0;
+                                isDrawerOpen = false;
                               });
+                            } else {
+                              if (!isDrawerOpen) {
+                                setState(() {
+                                  xOffset = size.width - 100;
+                                  yOffset = size.height / 5;
+                                  isDrawerOpen = true;
+                                });
+                              }
                             }
-                          }
-                        },
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        RowSearchBars(
-                          icon: Icons.arrow_drop_down,
-                          hintText: "Enter Zip Code",
-                        ),
-                        RowSearchBars(
-                          icon: Icons.arrow_drop_down,
-                          hintText: "Enter Zip Code",
-                        ),
-                      ],
-                    )
-                  ],
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          RowSearchBars(
+                            icon: Icons.arrow_drop_down,
+                            hintText: "Enter Zip Code",
+                          ),
+                          RowSearchBars(
+                            icon: Icons.arrow_drop_down,
+                            hintText: "Enter Zip Code",
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-              OppertunitiesListTile(
-                  txtt1: "Name Here", txtt2: "Subtitles Here"),
-            ]),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+                OppertunitiesListTile(
+                    txtt1: "Name Here", txtt2: "Subtitles Here"),
+              ]),
+            ),
           ),
         ),
       ),

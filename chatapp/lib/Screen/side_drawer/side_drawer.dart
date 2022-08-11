@@ -1,13 +1,18 @@
 import 'package:chatapp/Screen/HomeScreen/HomeScreen.dart';
+import 'package:chatapp/Screen/Notific_screen/notific_screen.dart';
 import 'package:chatapp/Screen/chat_inbox_screen/model1.dart';
-import 'package:chatapp/Screen/top_givers/friend_screen.dart';
+import 'package:chatapp/Screen/profile_screen/profile_screen.dart';
+import 'package:chatapp/Screen/top_givers/top_givers.dart';
 import 'package:flutter/material.dart';
 
 import '../friends_screen/friends_screen.dart';
 import '../messages_screen/messages_screen.dart';
+import '../nomination_list_screen/nomination_list_screen.dart';
 import '../nominator_screen.dart/nominator_screen.dart';
 import '../oppertunities_screen/oppertunity_screen.dart';
+import '../submit_opportunities/submit_opportunities.dart';
 import '../top_badges/top_badges_screen.dart';
+import '../user_profile/user_profile_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -27,7 +32,8 @@ class DrawerScreen extends StatelessWidget {
                   height: 80,
                   width: 220,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white.withOpacity(0.20),
+                    borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.white),
                   ),
                   child: Padding(
@@ -37,6 +43,7 @@ class DrawerScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CircleAvatar(
+                          backgroundImage: AssetImage('assets/img6.png'),
                           radius: 30,
                         ),
                         SizedBox(
@@ -86,9 +93,16 @@ class DrawerScreen extends StatelessWidget {
                 txts: "Home",
               ),
               SideDrawerRow(
-                ontap: () {},
+                ontap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserProfileScreen(),
+                    ),
+                  );
+                },
                 icons: Icons.person,
-                txts: "Person",
+                txts: "Profile",
               ),
               SideDrawerRow(
                 ontap: () {
@@ -139,55 +153,71 @@ class DrawerScreen extends StatelessWidget {
                 txts: "Message",
               ),
               SideDrawerRow(
-                ontap: () {},
+                ontap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificScreen(),
+                    ),
+                  );
+                },
                 icons: Icons.notifications,
                 txts: "Notifications",
               ),
               SideDrawerRow(
                 ontap: () {
                   Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OppertunityScreen()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SubmitOpportunities(),
+                    ),
+                  );
                 },
                 icons: Icons.lightbulb,
                 txts: "Opportunities",
               ),
-              SizedBox(
-                height: 30,
-              ),
               Padding(
-                padding: const EdgeInsets.only(
-                  left: 50,
-                ),
+                padding: const EdgeInsets.only(left: 10, top: 130),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Icon(
                       Icons.settings,
-                      size: 30,
+                      size: 20,
                       color: Colors.white,
                     ),
                     SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      "Settings",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Settings",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
                     ),
                     Text(
                       "|",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
-                          fontSize: 20),
+                          fontSize: 16),
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Text(
                       "LogOut",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ],
                 ),
@@ -214,24 +244,24 @@ class SideDrawerRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            GestureDetector(
-              onTap: ontap,
-              child: Icon(
+        GestureDetector(
+          onTap: ontap,
+          child: Row(
+            children: [
+              Icon(
                 icons,
                 color: Colors.white,
-                size: 25,
+                size: 20,
               ),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Text(
-              txts,
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
-          ],
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                txts,
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: 20,

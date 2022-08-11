@@ -38,84 +38,61 @@ class _TopBadgesScreenState extends State<TopBadgesScreen> {
               ? BorderRadius.circular(40)
               : BorderRadius.circular(0),
         ),
-        child: Scaffold(
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height: 120,
-                    color: Color(0xffC60000),
-                    child: CustomAppBarWidget(
-                      txt: "Top Badges",
-                      onPressed: () {
-                        if (isDrawerOpen) {
-                          setState(() {
-                            xOffset = 0;
-                            yOffset = 0;
-                            isDrawerOpen = false;
-                          });
-                        } else {
-                          if (!isDrawerOpen) {
+        child: SafeArea(
+          child: Scaffold(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 120,
+                      color: Color(0xffC60000),
+                      child: CustomAppBarWidget(
+                        txt: "Top Badges",
+                        onPressed: () {
+                          if (isDrawerOpen) {
                             setState(() {
-                              xOffset = size.width - 100;
-                              yOffset = size.height / 5;
-                              isDrawerOpen = true;
+                              xOffset = 0;
+                              yOffset = 0;
+                              isDrawerOpen = false;
                             });
+                          } else {
+                            if (!isDrawerOpen) {
+                              setState(() {
+                                xOffset = size.width - 100;
+                                yOffset = size.height / 5;
+                                isDrawerOpen = true;
+                              });
+                            }
                           }
-                        }
-                      },
+                        },
+                      ),
                     ),
-                  ),
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TabButton(),
-                        DMWTabButton(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15, left: 20),
-                          child: RichText(
-                            text: TextSpan(children: <InlineSpan>[
-                              TextSpan(
-                                text: ' Friends',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              WidgetSpan(
-                                  alignment: PlaceholderAlignment.baseline,
-                                  baseline: TextBaseline.alphabetic,
-                                  child: SizedBox(width: 230)),
-                              TextSpan(
-                                  text: 'see all ',
-                                  style: TextStyle(
-                                      color: Colors.blue, fontSize: 15),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {}),
-                            ]),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TabButton(),
+                          DMWTabButton(),
+                          Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: ListView.builder(
+                              itemCount: personList.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 5),
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return CustomFriend(
+                                  title: personList[index].title,
+                                  subtitle: personList[index].subtile,
+                                  image1: personList[index].image1,
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(0),
-                          child: ListView.builder(
-                            itemCount: personList.length,
-                            shrinkWrap: true,
-                            padding: EdgeInsets.only(top: 5),
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return CustomFriend(
-                                title: personList[index].title,
-                                subtitle: personList[index].subtile,
-                                image1: personList[index].image1,
-                              );
-                            },
-                          ),
-                        ),
-                      ]),
-                ],
+                        ]),
+                  ],
+                ),
               ),
             ),
           ),

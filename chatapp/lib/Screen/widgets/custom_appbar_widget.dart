@@ -17,30 +17,33 @@ class CustomAppBarWidget extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
               onTap: onPressed,
-              child: SvgPicture.asset(
-                "assets/leadingicon.svg",
-                height: 35,
-                width: 35,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset(
+                  "assets/leadingicon.svg",
+                  height: 35,
+                  width: 35,
+                ),
               ),
             ),
             SizedBox(
-              width: 100,
+              width: 50,
             ),
             Text(
               txt,
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             SizedBox(
-              width: 70,
+              width: 50,
             ),
             IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.menu,
+                Icons.more_vert_outlined,
                 color: Colors.white,
               ),
             ),

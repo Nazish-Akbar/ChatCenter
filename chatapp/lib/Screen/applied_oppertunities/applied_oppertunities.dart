@@ -9,74 +9,76 @@ class AppliedOppertunities extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          CustomAppBarWidget(
-            txt: "home",
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                AppliedOppertunitiesListTileWidget(
-                  txtt1: "Lawem Bunen",
-                  txtt2: "Discover Little Known Secrets Of Life",
-                  // Icons1: Icons.person,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                AppliedOppertunitiesListTileWidget(
-                  txtt1: "Lawem Bunen",
-                  txtt2: "Discover Little Known Secrets Of Life",
-                  // Icons1: Icons.person,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                AppliedOppertunitiesListTileWidget(
-                  txtt1: "Lawem Bunen",
-                  txtt2: "Discover Little Known Secrets Of Life",
-                  // Icons1: Icons.person,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                AppliedOppertunitiesListTileWidget(
-                  txtt1: "Lawem Bunen",
-                  txtt2: "Discover Little Known Secrets Of Life",
-                  // Icons1: Icons.person,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                AppliedOppertunitiesListTileWidget(
-                  txtt1: "Lawem Bunen",
-                  txtt2: "Discover Little Known Secrets Of Life",
-                  // Icons1: Icons.person,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                AppliedOppertunitiesListTileWidget(
-                  txtt1: "Lawem Bunen",
-                  txtt2: "Discover Little Known Secrets Of Life",
-                  // Icons1: Icons.person,
-                ),
-                // SizedBox(
-                //   height: 10,
-                // ),
-                // AppliedOppertunitiesListTileWidget(
-                //   txtt1: "Lawem Bunen",
-                //   txtt2: "Discover Little Known Secrets Of Life",
-                //   // Icons1: Icons.person,
-                // ),
-              ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            CustomAppBarWidget(
+              txt: "home",
             ),
-          ),
-        ],
+            SizedBox(
+              height: 10,
+            ),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  AppliedOppertunitiesListTileWidget(
+                    txtt1: "Lawem Bunen",
+                    txtt2: "Discover Little Known Secrets Of Life",
+                    // Icons1: Icons.person,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  AppliedOppertunitiesListTileWidget(
+                    txtt1: "Lawem Bunen",
+                    txtt2: "Discover Little Known Secrets Of Life",
+                    // Icons1: Icons.person,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  AppliedOppertunitiesListTileWidget(
+                    txtt1: "Lawem Bunen",
+                    txtt2: "Discover Little Known Secrets Of Life",
+                    // Icons1: Icons.person,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  AppliedOppertunitiesListTileWidget(
+                    txtt1: "Lawem Bunen",
+                    txtt2: "Discover Little Known Secrets Of Life",
+                    // Icons1: Icons.person,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  AppliedOppertunitiesListTileWidget(
+                    txtt1: "Lawem Bunen",
+                    txtt2: "Discover Little Known Secrets Of Life",
+                    // Icons1: Icons.person,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  AppliedOppertunitiesListTileWidget(
+                    txtt1: "Lawem Bunen",
+                    txtt2: "Discover Little Known Secrets Of Life",
+                    // Icons1: Icons.person,
+                  ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
+                  // AppliedOppertunitiesListTileWidget(
+                  //   txtt1: "Lawem Bunen",
+                  //   txtt2: "Discover Little Known Secrets Of Life",
+                  //   // Icons1: Icons.person,
+                  // ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

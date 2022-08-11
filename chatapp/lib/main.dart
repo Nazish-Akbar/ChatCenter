@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'Screen/Notification_Screen/Notification_Screen.dart';
 import 'Screen/act_of_kindness/act_of_kindness_screen.dart';
+import 'Screen/creating_opportunities/creating_opportunities.dart';
 import 'Screen/individual_opportunities/individual_opportunities.dart';
 import 'Screen/recognization_screen/recognization_screen.dart';
 import 'Screen/submit_opportunities/submit_opportunities.dart';
@@ -23,11 +24,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       // theme: ThemeData(
       //   primarySwatch: Colors.blue,
       // ),
-      //home: WelcomeScreen(),
-      home: ActOfKindnessScreen(),
+      home: WelcomeScreen(),
+      // home: CreatingOpportunities(),
     );
   }
 }

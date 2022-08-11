@@ -40,69 +40,71 @@ class _MessagesScreenState extends State<MessagesScreen> {
               ? BorderRadius.circular(40)
               : BorderRadius.circular(0),
         ),
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(children: [
-              Container(
-                height: 120,
-                color: Color(0xffC60000),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: CustomAppBarWidget(
-                    txt: "Messages",
-                    onPressed: () {
-                      if (isDrawerOpen) {
-                        setState(() {
-                          xOffset = 0;
-                          yOffset = 0;
-                          isDrawerOpen = false;
-                        });
-                      } else {
-                        if (!isDrawerOpen) {
+        child: SafeArea(
+          child: Scaffold(
+            body: SingleChildScrollView(
+              child: Column(children: [
+                Container(
+                  height: 130,
+                  color: Color(0xffC60000),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: CustomAppBarWidget(
+                      txt: "Messages",
+                      onPressed: () {
+                        if (isDrawerOpen) {
                           setState(() {
-                            xOffset = size.width - 100;
-                            yOffset = size.height / 5;
-                            isDrawerOpen = true;
+                            xOffset = 0;
+                            yOffset = 0;
+                            isDrawerOpen = false;
                           });
+                        } else {
+                          if (!isDrawerOpen) {
+                            setState(() {
+                              xOffset = size.width - 100;
+                              yOffset = size.height / 5;
+                              isDrawerOpen = true;
+                            });
+                          }
                         }
-                      }
-                    },
+                      },
+                    ),
                   ),
                 ),
-              ),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-              MessageListTile(
-                  txtt1: "Name Here", txtt2: "Other Details Goes Here"),
-            ]),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+                MessageListTile(
+                    txtt1: "Name Here", txtt2: "Other Details Goes Here"),
+              ]),
+            ),
           ),
         ),
       ),

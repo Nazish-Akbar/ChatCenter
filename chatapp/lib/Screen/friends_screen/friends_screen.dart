@@ -36,7 +36,7 @@ class Friends_ScreenState extends State<Friends_Screen> {
             child: Column(
               children: [
                 Container(
-                  height: 120,
+                  height: 130,
                   color: Color(0xffC60000),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),

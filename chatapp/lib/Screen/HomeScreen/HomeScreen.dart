@@ -2,12 +2,15 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:chatapp/Screen/HomeScreen/home_screen_provider.dart';
+import 'package:chatapp/Screen/act_of_kindness/act_of_kindness_screen.dart';
 import 'package:chatapp/Screen/oppertunities_screen/opportunities_list_tile.dart';
 import 'package:chatapp/Screen/side_drawer/side_drawer.dart';
+import 'package:chatapp/Screen/top_badges/top_badges_screen.dart';
 import 'package:chatapp/Screen/widgets/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../top_givers/top_givers.dart';
 import '../widgets/comment_section_button.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_row.dart';
@@ -79,18 +82,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   Column(
                     children: [
                       TabButton(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text("Act Of Kindness"),
-                          Text(
-                            "View More",
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Color(0xffC60000),
-                            ),
-                          )
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                        child: CustomRow(
+                            txt2: "Act Of Kindness",
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ActOfKindnessScreen(),
+                                ),
+                              );
+                            }),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -117,7 +120,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Text("Name Here"),
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
                                         child: Container(
                                           height: 25,
                                           width: 100,
@@ -126,14 +130,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 BorderRadius.circular(10),
                                             color: Colors.blue,
                                           ),
-                                          child: Text(
-                                            "Spontaneous",
-                                            textAlign: TextAlign.center,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 5.0, right: 5.0, top: 3),
+                                            child: Text(
+                                              "Spontaneous",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ],
                                   ),
+                                  SizedBox(
+                                    width: 150,
+                                  ),
+                                  Container(
+                                    height: 30,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.grey.shade300),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.message_outlined,
+                                            color: Colors.black,
+                                          ),
+                                          SizedBox(
+                                            width: 3,
+                                          ),
+                                          Text("47"),
+                                        ],
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                               Text(
@@ -191,6 +227,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.all(20.0),
                         child: CustomRow(
                           txt2: "Top Givers",
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TopGiver(),
+                              ),
+                            );
+                          },
                         ),
                       ),
                       Card(
@@ -225,6 +269,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: CustomRow(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TopBadgesScreen()),
+                            );
+                          },
                           txt2: "Top Badges",
                         ),
                       ),
@@ -260,7 +311,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: CustomRow(
+                          onTap: () {},
                           txt2: "Oppertunity To Give",
+                          //onTap: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>to))},
                         ),
                       ),
                       OppertunitiesListTile(

@@ -1,3 +1,4 @@
+import 'package:chatapp/Screen/individual_opportunities/individual_opportunities.dart';
 import 'package:flutter/material.dart';
 
 class OppertunitiesListTile extends StatelessWidget {
@@ -12,24 +13,32 @@ class OppertunitiesListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        // leading: CircleAvatar(),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              txtt1,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(txtt2),
-          ],
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text("This Miles"),
-          ],
+    return InkWell(
+      onTap: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => IndividualOppertunities()),
+        );
+      },
+      child: Card(
+        child: ListTile(
+          // leading: CircleAvatar(),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                txtt1,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(txtt2),
+            ],
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("This Miles"),
+            ],
+          ),
         ),
       ),
     );

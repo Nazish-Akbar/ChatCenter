@@ -18,11 +18,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> readJson() async {
     final String response =
-        await rootBundle.loadString('assets/notifications.json');
+        await rootBundle.loadString('assets/notification.json');
     final data = await json.decode(response);
 
     setState(() {
-      notifications = data['notifications']
+      notifications = data['notification']
           .map((data) => InstagramNotification.fromJson(data))
           .toList();
     });
@@ -104,20 +104,23 @@ class _HomePageState extends State<HomePage> {
                               border:
                                   Border.all(color: Colors.white, width: 3)),
                           child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.network(notification.profilePic)),
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.network(notification.profilePic),
+                          ),
                         ),
                       )
                     : Container(
                         width: 50,
                         height: 50,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color: Colors.grey.shade300, width: 1)),
+                          shape: BoxShape.circle,
+                          border:
+                              Border.all(color: Colors.grey.shade300, width: 1),
+                        ),
                         child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: Image.network(notification.profilePic)),
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.network(notification.profilePic),
+                        ),
                       ),
                 SizedBox(
                   width: 10,
@@ -150,14 +153,36 @@ class _HomePageState extends State<HomePage> {
                 )
               : Container(
                   height: 35,
-                  width: 110,
+                  width: 130,
                   decoration: BoxDecoration(
-                    color: Colors.blue[700],
+                    //color: Colors.blue[700],
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Center(
-                      child: Text('Follow',
-                          style: TextStyle(color: Colors.white)))),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 30,
+                          width: 60,
+                          decoration: BoxDecoration(color: Colors.red),
+                          child: Text(
+                            'Accept',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        Container(
+                          height: 30,
+                          width: 60,
+                          decoration: BoxDecoration(color: Colors.red),
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
         ],
       ),
     );
