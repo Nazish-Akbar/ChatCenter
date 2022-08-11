@@ -34,110 +34,112 @@ class _NotificScreenState extends State<NotificScreen> {
                 ? BorderRadius.circular(40)
                 : BorderRadius.circular(0),
           ),
-          child: Scaffold(
-            body: SingleChildScrollView(
-              child: Column(children: [
-                Container(
-                  color: Color.fromRGBO(198, 0, 0, 1),
-                  height: 70,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            if (isDrawerOpen) {
-                              setState(() {
-                                xOffset = 0;
-                                yOffset = 0;
-                                isDrawerOpen = false;
-                              });
-                            } else {
-                              if (!isDrawerOpen) {
+          child: SafeArea(
+            child: Scaffold(
+              body: SingleChildScrollView(
+                child: Column(children: [
+                  Container(
+                    color: Color.fromRGBO(198, 0, 0, 1),
+                    height: 70,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              if (isDrawerOpen) {
                                 setState(() {
-                                  xOffset = size.width - 100;
-                                  yOffset = size.height / 5;
-                                  isDrawerOpen = true;
+                                  xOffset = 0;
+                                  yOffset = 0;
+                                  isDrawerOpen = false;
                                 });
+                              } else {
+                                if (!isDrawerOpen) {
+                                  setState(() {
+                                    xOffset = size.width - 100;
+                                    yOffset = size.height / 5;
+                                    isDrawerOpen = true;
+                                  });
+                                }
                               }
-                            }
-                          },
-                          child: SvgPicture.asset(
-                            "assets/leadingicon.svg",
-                            height: 35,
-                            width: 35,
+                            },
+                            child: SvgPicture.asset(
+                              "assets/leadingicon.svg",
+                              height: 35,
+                              width: 35,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 70,
-                        ),
-                        Text(
-                          "Notification",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.more_vert_outlined,
-                            color: Colors.white,
+                          SizedBox(
+                            width: 70,
                           ),
-                        ),
-                      ],
+                          Text(
+                            "Notification",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          SizedBox(
+                            width: 50,
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.more_vert_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                //
-                //Align(alignment: Alignment.topLeft, child: Text("Today")),
-                TextWidget(HeadLinesText: "Today"),
-                NotificScreenCard(
-                  T1: "David Warner commented on your  ",
-                  T2: "token.",
-                ),
-                NotificScreenCard(
-                  T1: "Jane Smith applauded your token. ",
-                  T2: "16 min ago",
-                ),
-                Card2(
-                  Tx1: "Sansa applauded",
-                  Tx2: "20 min ago",
-                ),
-                //Align(alignment: Alignment.topLeft, child: Text("Yesterday")),
-                TextWidget(HeadLinesText: "Yesterday"),
-                Card2(
-                  Tx1: "Sansa applauded",
-                  Tx2: "20 min ago",
-                ),
-                NotificScreenCard(
-                  T1: "Sansa kane applauded your token. ",
-                  T2: "20 min ago",
-                ),
-                NotificScreenCard(
-                  T1: "Sansa kane applauded your token. ",
-                  T2: "20 min ago",
-                ),
-                Card2(
-                  Tx1: "Sansa applauded",
-                  Tx2: "20 min ago",
-                ),
-                //Align(alignment: Alignment.topLeft, child: Text("This Week")),
-                TextWidget(HeadLinesText: "This Week"),
-                NotificScreenCard(
-                  T1: "Sansa kane applauded your token. ",
-                  T2: "20 min ago",
-                ),
-                NotificScreenCard(
-                  T1: "Sansa kane applauded your token. ",
-                  T2: "20 min ago",
-                ),
-                Card2(
-                  Tx1: "Sansa applauded",
-                  Tx2: "20 min ago",
-                ),
-              ]),
+                  //
+                  //Align(alignment: Alignment.topLeft, child: Text("Today")),
+                  TextWidget(HeadLinesText: "Today"),
+                  NotificScreenCard(
+                    T1: "David Warner commented on your  ",
+                    T2: "token.",
+                  ),
+                  NotificScreenCard(
+                    T1: "Jane Smith applauded your token. ",
+                    T2: "16 min ago",
+                  ),
+                  Card2(
+                    Tx1: "Sansa applauded",
+                    Tx2: "20 min ago",
+                  ),
+                  //Align(alignment: Alignment.topLeft, child: Text("Yesterday")),
+                  TextWidget(HeadLinesText: "Yesterday"),
+                  Card2(
+                    Tx1: "Sansa applauded",
+                    Tx2: "20 min ago",
+                  ),
+                  NotificScreenCard(
+                    T1: "Sansa kane applauded your token. ",
+                    T2: "20 min ago",
+                  ),
+                  NotificScreenCard(
+                    T1: "Sansa kane applauded your token. ",
+                    T2: "20 min ago",
+                  ),
+                  Card2(
+                    Tx1: "Sansa applauded",
+                    Tx2: "20 min ago",
+                  ),
+                  //Align(alignment: Alignment.topLeft, child: Text("This Week")),
+                  TextWidget(HeadLinesText: "This Week"),
+                  NotificScreenCard(
+                    T1: "Sansa kane applauded your token. ",
+                    T2: "20 min ago",
+                  ),
+                  NotificScreenCard(
+                    T1: "Sansa kane applauded your token. ",
+                    T2: "20 min ago",
+                  ),
+                  Card2(
+                    Tx1: "Sansa applauded",
+                    Tx2: "20 min ago",
+                  ),
+                ]),
+              ),
             ),
           ),
         ),
