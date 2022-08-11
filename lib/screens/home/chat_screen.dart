@@ -354,7 +354,7 @@ class ChatScreen extends StatelessWidget {
     // bool isSmall = false,
     required MessageProvider model,
   }) {
-    // HireProvider model = Provider.of<HireProvider>(context);
+    // MessageProvider model = Provider.of<MessageProvider>(context);
     Get.bottomSheet(
       Container(
         height: Get.height * 0.4,

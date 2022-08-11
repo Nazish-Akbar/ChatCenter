@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../locator.dart';
 import '../models/app_user.dart';
 import '../models/conversation_model.dart';
+import '../models/friend_request.dart';
 import 'auth_services.dart';
 
 class DatabaseServices {
@@ -132,12 +133,16 @@ class DatabaseServices {
       print('Exception@UpdateUserProfile=>$e');
     }
   }
+  ///////////////////// get all app user/////////////
 
   Future<List<AppUser>> getAllAppUser() async {
     final List<AppUser> appUserList = [];
     try {
-      QuerySnapshot snapshot =
-          await firebaseFireStore.collection('AppUser').get();
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('AppUser')
+          .where('appUserId',
+              isNotEqualTo: locator<AuthServices>().appUser.appUserId)
+          .get();
       if (snapshot.docs.length > 0) {
         snapshot.docs.forEach((element) {
           appUserList.add(AppUser.fromJson(element, element.id));
@@ -181,22 +186,17 @@ class DatabaseServices {
           .collection("Chats")
           .doc("$toUserId")
           .collection("messages")
-         
           .add(conversation.toJson());
 
-      
       ///
       /// to user message
       ///
       await firebaseFireStore
           .collection("Conversations")
-
           .doc("$toUserId")
           .collection("Chats")
           .doc("${currentAppUser.appUserId}")
           .collection("messages")
-          
-          
           .add(conversation.toJson());
       await firebaseFireStore
           .collection("Conversations")
@@ -206,6 +206,60 @@ class DatabaseServices {
           .set(currentAppUser.toJson());
     } catch (e) {
       print('Exception@sentUserMessage$e');
+    }
+  }
+
+  ///////////////////////friend request/////////////////
+
+  Future sendFriendRequest(
+    FriendRequestModel friendRequestModel,
+  ) async {
+    try {
+      await firebaseFireStore
+          .collection('FriendRequests')
+          .doc(friendRequestModel.receiverId)
+          .collection("setRequest")
+          .doc()
+          .set(friendRequestModel.toJson());
+
+      return true;
+    } catch (e) {
+      print('Exception@ requests=>$e');
+      return e;
+    }
+  }
+
+  //--This is used to get friend requests for currently logged in user
+  getFriendRequest(String userId) async {
+    try {
+      var result = await firebaseFireStore
+          .collection('FriendRequests')
+          .doc(userId)
+          .collection("setRequest")
+          .get();
+      print("${result.docs.first.data()}");
+      return result.docs;
+    } catch (e) {
+      print("Error@getFriendRequest ===> $e");
+      // return "Error: $e";
+      return false;
+    }
+  }
+
+/////// this is used to get friends /////////////////////////
+  getFriends(String userId) async {
+    try {
+      var result = await firebaseFireStore
+          .collection('Friends')
+          .doc(userId)
+          .collection("setFriends")
+          .get();
+      print("${result.docs.first.data()}");
+      return result.docs;
+    } catch (e) {
+      print("Error@getFriendRequest ===> $e");
+      // return "Error: $e";
+      return false;
     }
   }
 

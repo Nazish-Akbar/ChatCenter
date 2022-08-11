@@ -56,7 +56,7 @@ class EditProfile extends StatelessWidget {
                               radius: 60,
                               backgroundImage: model.userImage != null
                                   ? FileImage(model.userImage!)
-                                  : AssetImage('assets/icons/prof.png')
+                                  : AssetImage('assets/profile_icon.png')
                                       as ImageProvider,
                             ),
                           ),

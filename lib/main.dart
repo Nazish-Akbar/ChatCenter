@@ -11,6 +11,7 @@ import 'core/locator.dart';
 import 'screens/authentication/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'screens/friend/friend_request_provider.dart';
 import 'screens/home/message_provider.dart';
 
 Future<void> main() async {
@@ -34,10 +35,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return MultiProvider( providers:[
+    return MultiProvider(
+      providers: [
         ChangeNotifierProvider<MessageProvider>(
           create: (context) => MessageProvider(),
-    )],
+        ),
+      ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Pregnancy Tracker',

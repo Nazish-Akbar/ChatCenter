@@ -12,6 +12,7 @@ import '../../core/locator.dart';
 import '../../core/models/app_user.dart';
 import '../../core/models/base_view_model.dart';
 import '../../core/models/conversation_model.dart';
+import '../../core/models/friends model.dart';
 import '../../core/services/auth_services.dart';
 import '../../core/services/database_services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,7 +22,7 @@ class MessageProvider extends BaseViewModal {
   XFile? image;
   File? userImage;
   File? userAudio;
-   double uploadProgress = 0;
+  double uploadProgress = 0;
 
   final ImagePicker imagePicker = ImagePicker();
   bool isSearching = false;
@@ -29,7 +30,7 @@ class MessageProvider extends BaseViewModal {
   final formKey = GlobalKey<FormState>();
   List<AppUser> searchedUsers = [];
   List<AppUser> appUsers = [];
-  List<AppUser> allAppUsers = [];
+  List<AppUser> allfriends = [];
 
   List<AppUser> conversationUserList = [];
   List<AppUser> searchedAppUsers = [];
@@ -38,25 +39,31 @@ class MessageProvider extends BaseViewModal {
   final Conversation conversation = Conversation();
   List<Conversation> messages = [];
   final messageController = TextEditingController();
-
+  final locateUser = locator<AuthServices>();
   Stream<QuerySnapshot>? getMessageStream;
   Stream<QuerySnapshot>? getConversationListStream;
   var onlyTime = DateFormat.jm();
   DatabaseStorageServices databaseStorageServices = DatabaseStorageServices();
-  final locateUser = locator<AuthServices>();
 
   MessageProvider() {
     currentAppUser = currentUser.appUser;
-    getAppUsers();
+    getAllFriends();
     getUserConversationList();
   }
 
   ///
-  /// Get all app users
-  ///
-  getAppUsers() async {
+  /// Get all friend users
+
+  getAllFriends() async {
     setState(ViewState.busy);
-    appUsers = await databaseServices.getAllAppUser();
+
+    // Friends x = Friends(
+    //   friendImage: locateUser.appUser.imageUrl,
+    //   friendName: locateUser.appUser.userName,
+    // );
+
+    allfriends =
+        await databaseServices.getFriends(locateUser.appUser.appUserId!);
     setState(ViewState.idle);
   }
 
@@ -89,25 +96,25 @@ class MessageProvider extends BaseViewModal {
       }
 
       Future<bool?> uploadVoiceNote(problemId) async {
-    print("voice Uploading called");
-    if (audioPath != null) {
-      print("audio path");
-      // File voiceNote = await File(audioPath).create();
-      // voiceNote = File(audioPath);
-      voiceNoteUrl = await databaseStorageServices.uploadVoiceNote(
-        voiceNote: voiceNote!,
-        // voiceNote: voiceData,
-        userId: locateUser.appUser.appUserId!,
-        problemId: problemId,
-      );
-      uploadProgress = 0.8;
-      notifyListeners();
-      print("firebase VoiceNoteURL Path ==> $voiceNoteUrl");
-      conversation.voiceNote = voiceNoteUrl;
-      clearAudioPath();
-      conversation.type=1;
-    }
-  }
+        print("voice Uploading called");
+        if (audioPath != null) {
+          print("audio path");
+          // File voiceNote = await File(audioPath).create();
+          // voiceNote = File(audioPath);
+          voiceNoteUrl = await databaseStorageServices.uploadVoiceNote(
+            voiceNote: voiceNote!,
+            // voiceNote: voiceData,
+            userId: locateUser.appUser.appUserId!,
+            problemId: problemId,
+          );
+          uploadProgress = 0.8;
+          notifyListeners();
+          print("firebase VoiceNoteURL Path ==> $voiceNoteUrl");
+          conversation.voiceNote = voiceNoteUrl;
+          clearAudioPath();
+          conversation.type = 1;
+        }
+      }
 
       // if (voiceNote != null) {
       //   var audioUrl = await databaseStorageServices.uploadAudioToStorage(
@@ -135,14 +142,13 @@ class MessageProvider extends BaseViewModal {
       notifyListeners();
     }
   }
-/// function 1
+
+  /// function 1
 
   pickImageFromGallery(BuildContext context) async {
     await selectImageDialog(context);
     notifyListeners();
   }
-
-
 
   selectImageDialog(BuildContext context) async {
     showDialog(
@@ -167,26 +173,20 @@ class MessageProvider extends BaseViewModal {
             height: 140,
             child: Column(
               children: [
-
-
-
-
                 ListTile(
-                  
                   onTap: () async {
-                  
                     image = await imagePicker.pickImage(
                       source: ImageSource.camera,
                       imageQuality: 1,
                     );
-                  
+
                     print("Photo Path: ${image!.path}");
 
                     File compressedFile =
                         await compressImage(File(image!.path));
-                    
+
                     userImage = compressedFile;
-                    
+
                     // selectImage(compressedFile);
                     Navigator.pop(context);
                   },
@@ -210,7 +210,7 @@ class MessageProvider extends BaseViewModal {
                     File compressedFile =
                         await compressImage(File(image!.path));
                     // selectImage(compressedFile);
-                      userImage = compressedFile;
+                    userImage = compressedFile;
                     Navigator.pop(context);
                   },
                   contentPadding: EdgeInsets.zero,
