@@ -21,7 +21,7 @@ class DrawerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 41, 40, 40),
+        backgroundColor: Color(0xff3133e),
         body: Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 10),
           child: Column(
