@@ -65,7 +65,7 @@ class MessageProvider extends BaseViewModal {
     print("call to database -==========");
 
     var result =
-        await databaseServices.getFriends(locateUser.appUser.appUserId!);
+        await databaseServices.getFriends(locateUser.appUser.appUserId!.toString());
     //if (!result) {
     //show error snackbar to user
     // }

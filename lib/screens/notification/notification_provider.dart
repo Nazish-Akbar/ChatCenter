@@ -59,11 +59,11 @@ class NotificationProvider extends BaseViewModal {
     setState(ViewState.busy);
 
     FriendsModel myModel = FriendsModel(
-      receiverId: allAppUsers[index].appUserId,
+      receiverId: locateUser.appUser.appUserId,
       // senderDescription: null,
-      senderId: locateUser.appUser.appUserId,
-      friendImage: locateUser.appUser.imageUrl,
-      friendName: locateUser.appUser.userName,
+      senderId: friendRequestsList[index].senderId,
+      friendImage: friendRequestsList[index].senderImage,
+      friendName: friendRequestsList[index].senderName,
       //sentAt: DateTime.now(),
     );
 

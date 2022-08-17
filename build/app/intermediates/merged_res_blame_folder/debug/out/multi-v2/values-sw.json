@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\flutter projects\\ChatCenter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw\\values-sw.xml",
+            "outputFile": "D:\\MyFlutterProjects\\ChatCenter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw\\values-sw.xml",
             "map": [
                 {
                     "source": "C:\\Users\\DELL\\.gradle\\caches\\transforms-3\\19a0dfd4021b70333b258b23187eb758\\transformed\\jetified-play-services-basement-18.0.0\\res\\values-sw\\values.xml",

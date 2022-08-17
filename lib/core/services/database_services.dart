@@ -271,7 +271,7 @@ class DatabaseServices {
     try {
       var result = await firebaseFireStore
           .collection('Friends')
-          .doc(userId)
+          .doc("${userId}")
           .collection("FriendList")
           .get();
 
