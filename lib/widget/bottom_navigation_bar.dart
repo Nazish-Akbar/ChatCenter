@@ -83,7 +83,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   });
                 },
               ),
-               BottomNavigationItems(
+              BottomNavigationItems(
                 getColor: pageIndex == 1 ? redColor : Colors.white,
                 iconPath: 'assets/notification.svg',
                 onPressed: () {

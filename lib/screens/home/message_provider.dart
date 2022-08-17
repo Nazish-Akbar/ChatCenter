@@ -30,10 +30,11 @@ class MessageProvider extends BaseViewModal {
   final formKey = GlobalKey<FormState>();
   List<AppUser> searchedUsers = [];
   List<AppUser> appUsers = [];
-  List<AppUser> allfriends = [];
 
+  List<FriendsModel> friendsList = [];
+  List<FriendsModel> myUser = [];
   List<AppUser> conversationUserList = [];
-  List<AppUser> searchedAppUsers = [];
+  List<FriendsModel> searchedAppUsers = [];
   DatabaseServices databaseServices = DatabaseServices();
   final currentUser = locator<AuthServices>();
   final Conversation conversation = Conversation();
@@ -44,6 +45,8 @@ class MessageProvider extends BaseViewModal {
   Stream<QuerySnapshot>? getConversationListStream;
   var onlyTime = DateFormat.jm();
   DatabaseStorageServices databaseStorageServices = DatabaseStorageServices();
+
+  Stream<QuerySnapshot>? stream;
 
   MessageProvider() {
     currentAppUser = currentUser.appUser;
@@ -57,13 +60,27 @@ class MessageProvider extends BaseViewModal {
   getAllFriends() async {
     setState(ViewState.busy);
 
-    // Friends x = Friends(
-    //   friendImage: locateUser.appUser.imageUrl,
-    //   friendName: locateUser.appUser.userName,
-    // );
+    // allfriends =
 
-    allfriends =
+    print("call to database -==========");
+
+    var result =
         await databaseServices.getFriends(locateUser.appUser.appUserId!);
+    //if (!result) {
+    //show error snackbar to user
+    // }
+    print("Resulting documents are: ${result[0].data()}");
+    for (int i = 0; i < result.length; i++) {
+      print("Heloooooooooooo ====================================>");
+
+      friendsList.add(FriendsModel.fromJson(result[i], result[i]));
+      myUser.add(friendsList[i]);
+      print("Number of Friend Requests = ${friendsList.length}");
+      print("${friendsList[0]}");
+    }
+
+    print("calll eeeeeeeeeeeeend");
+
     setState(ViewState.idle);
   }
 
@@ -390,9 +407,9 @@ class MessageProvider extends BaseViewModal {
             (e) => (e.userName!.toLowerCase().contains(keyword.toLowerCase())))
         .toList();
 
-    searchedAppUsers = appUsers
-        .where(
-            (e) => (e.userName!.toLowerCase().contains(keyword.toLowerCase())))
+    searchedAppUsers = friendsList
+        .where((e) =>
+            (e.friendName!.toLowerCase().contains(keyword.toLowerCase())))
         .toList();
     notifyListeners();
   }

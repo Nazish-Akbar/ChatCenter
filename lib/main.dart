@@ -13,6 +13,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'screens/friend/friend_request_provider.dart';
 import 'screens/home/message_provider.dart';
+import 'screens/notification/notification_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<MessageProvider>(
           create: (context) => MessageProvider(),
+        ),
+        ChangeNotifierProvider<NotificationProvider>(
+          create: (context) => NotificationProvider(),
         ),
       ],
       child: GetMaterialApp(

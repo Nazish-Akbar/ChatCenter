@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/core/enums/view_state.dart';
 import 'package:flutter_application_1/core/models/base_view_model.dart';
-import 'package:flutter_application_1/core/models/friend_model.dart';
+import 'package:flutter_application_1/core/models/person_model.dart';
 import 'package:flutter_application_1/core/models/friend_request.dart';
 import 'package:flutter_application_1/core/services/database_services.dart';
 import 'package:flutter_application_1/widget/custom_snackbar.dart';

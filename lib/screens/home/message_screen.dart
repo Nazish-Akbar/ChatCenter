@@ -35,7 +35,7 @@ class MessageScreen extends StatelessWidget {
                 indicatorColor: Colors.white,
                 tabs: [
                   Text("Messages"),
-                  Text("All users"),
+                  Text("All Friends"),
                 ],
               ),
               title: Padding(
@@ -69,7 +69,7 @@ class MessageScreen extends StatelessWidget {
             body: TabBarView(
               children: [
                 buildMessagesScreen(model, context),
-                buildAllUserScreen(model, context),
+                buildFriendsScreen(model, context),
               ],
             ),
           ),
@@ -124,8 +124,8 @@ class MessageScreen extends StatelessWidget {
                                     null
                                 ? CircleAvatar(
                                     radius: 30.r,
-                                    backgroundImage: AssetImage(
-                                        'assets/profile_icon.png'),
+                                    backgroundImage:
+                                        AssetImage('assets/profile_icon.png'),
                                   )
                                 : CircleAvatar(
                                     radius: 30.r,
@@ -161,10 +161,7 @@ class MessageScreen extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.all(5)
-                      
-                    );
+                    return Padding(padding: EdgeInsets.all(5));
                   },
                 ),
               )
@@ -175,96 +172,93 @@ class MessageScreen extends StatelessWidget {
   ///
   /// All app users
   ///
-  buildAllUserScreen(MessageProvider model, BuildContext context) {
-    return model.appUsers.isEmpty
+  buildFriendsScreen(MessageProvider model, BuildContext context) {
+    return model.friendsList.isEmpty
         ? Center(child: Text("No users found"))
-        : Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView.separated(
-              separatorBuilder: (context, index) {
-                return Padding(padding: EdgeInsets.all(5));
-              },
-              padding: EdgeInsets.symmetric(vertical: 5),
-              itemCount: model.isSearching == false
-                  ? model.appUsers.length
-                  : model.searchedAppUsers.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    model.isSearching == false
-                        ? Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                side: BorderSide(color: Colors.grey, width: 1),
-                              ),
-                              tileColor: Theme.of(context).cardColor,
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              onTap: () async {
-                                print(model.appUsers[index].appUserId);
-                                // await model.getAllMessages(model.appUsers[index].appUserId!);
-                                Navigator.push(
-                                    context,
-                                    CustomPageRoute(
-                                        child: ChatScreen(
-                                      toAppUser: model.appUsers[index],
-                                    )));
-                              },
-                              
-                              
-                              leading:
-                                  model.appUsers[index].profileImage == null
-                                      ? CircleAvatar(
-                                          radius: 30.r,
-                                          backgroundImage: AssetImage(
-                                              'assets/profile_icon.png'),
-                                        )
-                                      : CircleAvatar(
-                                          radius: 30.r,
-                                          // backgroundColor: Colors.transparent,
-                                          backgroundImage: NetworkImage(
-                                              '${model.appUsers[index].profileImage}'),
-                                        ),
-                              title: Text(model.appUsers[index].userName!),
-                            ),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            child: ListTile(
-                              tileColor: Theme.of(context).cardColor,
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              onTap: () async {
-                                // await model.getAllMessages(model.searchedUsers[index].appUserId!);
-                                Navigator.push(
-                                    context,
-                                    CustomPageRoute(
-                                        child: ChatScreen(
-                                      toAppUser: model.searchedAppUsers[index],
-                                    )));
-                              },
-                              leading:
-                                  model.searchedAppUsers[index].userName == null
-                                      ? CircleAvatar(
-                                          radius: 30.r,
-                                          backgroundImage: AssetImage(
-                                              'assets/profile_icon.png'),
-                                        )
-                                      : CircleAvatar(
-                                          radius: 30.r,
-                                          backgroundImage: NetworkImage(
-                                              '${model.searchedAppUsers[index].profileImage}'),
-                                        ),
-                              title:
-                                  Text(model.searchedAppUsers[index].userName!),
-                            ),
+        : ListView.separated(
+            separatorBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 23.0),
+                child: Divider(
+                  thickness: 1,
+                  color: redColor,
+                ),
+              );
+            },
+            padding: EdgeInsets.symmetric(vertical: 5),
+            itemCount: model.isSearching == false
+                ? model.friendsList.length
+                : model.searchedAppUsers.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  model.isSearching == false
+                      ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ListTile(
+                            tileColor: Theme.of(context).cardColor,
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            onTap: () async {
+                              print(model.friendsList[index].senderId);
+                              // await model.getAllMessages(model.appUsers[index].appUserId!);
+                              Navigator.push(
+                                  context,
+                                  CustomPageRoute(
+                                      child: ChatScreen(
+                                          //    toAppUser: model.friendsList[index],
+                                          )));
+                            },
+                            leading:
+                                model.friendsList[index].friendImage == null
+                                    ? CircleAvatar(
+                                        radius: 30.r,
+                                        backgroundImage: AssetImage(
+                                            'assets/icons/profile_icon.png'),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 30.r,
+                                        // backgroundColor: Colors.transparent,
+                                        backgroundImage: NetworkImage(
+                                            '${model.friendsList[index].friendImage}'),
+                                      ),
+                            title: Text(model.friendsList[index].friendName!),
                           ),
-                  ],
-                );
-              },
-            ),
+                        )
+                      : Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ListTile(
+                            tileColor: Theme.of(context).cardColor,
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            onTap: () async {
+                              // await model.getAllMessages(model.searchedUsers[index].appUserId!);
+                              Navigator.push(
+                                  context,
+                                  CustomPageRoute(
+                                      child: ChatScreen(
+                                          //   toAppUser: model.searchedAppUsers[index],
+                                          )));
+                            },
+                            leading:
+                                model.searchedAppUsers[index].friendName == null
+                                    ? CircleAvatar(
+                                        radius: 30.r,
+                                        backgroundImage: AssetImage(
+                                            'assets/icons/profile_icon.png'),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 30.r,
+                                        backgroundImage: NetworkImage(
+                                            '${model.searchedAppUsers[index].friendImage}'),
+                                      ),
+                            title:
+                                Text(model.searchedAppUsers[index].friendName!),
+                          ),
+                        ),
+                ],
+              );
+            },
           );
   }
 }

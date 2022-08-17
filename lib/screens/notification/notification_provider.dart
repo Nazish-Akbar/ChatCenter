@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/base_view_model.dart';
-import 'package:flutter_application_1/core/models/friend_model.dart';
+import 'package:flutter_application_1/core/models/person_model.dart';
 
 import '../../core/enums/view_state.dart';
 import '../../core/locator.dart';
 import '../../core/models/app_user.dart';
+import '../../core/models/friend_request.dart';
+import '../../core/models/friends model.dart';
 import '../../core/services/auth_services.dart';
 import '../../core/services/database_services.dart';
 
@@ -12,8 +15,12 @@ class NotificationProvider extends BaseViewModal {
 
   final appUser = AppUser();
   final locateUser = locator<AuthServices>();
-
+  List<AppUser> allAppUsers = [];
   List<Persons> friendRequestsList = [];
+
+  List<Persons> myUser = [];
+
+  Persons personModel = Persons();
 
   NotificationProvider() {
     print("NotificationProvider Constructor Called");
@@ -35,6 +42,7 @@ class NotificationProvider extends BaseViewModal {
     for (int i = 0; i < result.length; i++) {
       friendRequestsList
           .add(Persons.fromJson(result[i], result[i]["senderId"]));
+      myUser.add(friendRequestsList[i]);
       print("Number of Friend Requests = ${friendRequestsList.length}");
       print("${friendRequestsList[0]}");
     }
@@ -46,4 +54,30 @@ class NotificationProvider extends BaseViewModal {
 
     setState(ViewState.idle);
   }
+
+  confirmFun(int index, BuildContext context) async {
+    setState(ViewState.busy);
+
+    FriendsModel myModel = FriendsModel(
+      receiverId: allAppUsers[index].appUserId,
+      // senderDescription: null,
+      senderId: locateUser.appUser.appUserId,
+      friendImage: locateUser.appUser.imageUrl,
+      friendName: locateUser.appUser.userName,
+      //sentAt: DateTime.now(),
+    );
+
+    final result = await _databaseServices.addFriend(myModel);
+    if (result != true) {
+      // customSnackBar(context, "Could not send Request");
+      print("Friend Request could not be sent");
+    }
+    // customSnackBar(context, "Friend Request has been sent");
+    // Get.snackbar(titleText: Text("asdf"), );
+    print("Friend Request has been sent");
+    setState(ViewState.idle);
+  }
+
+//--- Confirn req
+
 }

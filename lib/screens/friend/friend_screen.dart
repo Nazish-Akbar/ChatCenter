@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/enums/view_state.dart';
-import '../../core/models/friend_model.dart';
+import '../../core/models/person_model.dart';
 import '../../widget/custom_friend.dart';
 import '../home/message_provider.dart';
 import 'friend_request_provider.dart';
